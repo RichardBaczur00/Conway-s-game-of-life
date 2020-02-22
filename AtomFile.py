@@ -11,7 +11,7 @@ class Atom:
 
     
     def is_surviving(self, grid):
-        neighbours = get_neighbours(grid)
+        neighbours = self.get_neighbours(grid)
         if len(neighbours) < 2:
             return False
         elif len(neighbours) > 3:
@@ -28,7 +28,7 @@ class Atom:
     
 
     def get_neighbours(self, grid):
-        ret = 0
+        ret = []
 
         initial_x = self.coordinate.x
         initial_y = self.coordinate.y
@@ -41,7 +41,7 @@ class Atom:
            new_y = initial_y + ty[i]
 
            if grid[new_x][new_y].is_alive:
-               ret += 1
+                ret.append(grid[new_x][new_y])
 
         return ret
 
