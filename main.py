@@ -1,7 +1,6 @@
 from AtomFile import Atom, Coordinate
 import os
 from time import sleep
-from IO_helper import IOhelper
 
 n = int(input("Please enter the number of lines for the grid: "))
 m = int(input("Please enter the number of columns for the grid: "))
@@ -33,10 +32,11 @@ def print_grid():
 def build_initial_celular_automata():
     number_of_live_molecules = int(input("Please enter the number of live cells you wish to start with: "))
     
-    reader = IOhelper("data.in", "txt")
-    data = reader.read_txt(number_of_live_molecules)
-    for molecule in data:
-        grid[molecule[0]][molecule[1]].revive(grid)
+    for i in range(number_of_live_molecules):
+        x_coordinate = int(input("{{ Please enter the x coordiante of the {}-(th) molecule: }}".format(i)))
+        y_coordinate = int(input("{{ Please enter the y coordiante of the {}-(th) molecule: }}".format(i))) 
+
+        grid[x_coordinate][y_coordinate].revive()
 
     print_grid()
 
