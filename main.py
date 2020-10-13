@@ -2,6 +2,8 @@ from AtomFile import Atom, Coordinate
 import os
 from time import sleep
 import random
+import sys
+
 
 n = int(input("Please enter the number of lines for the grid: "))
 m = int(input("Please enter the number of columns for the grid: "))
@@ -72,10 +74,22 @@ def simulate():
     return 0
 
 
-build_initial_celular_automata()
-for i in range(1, 10000000):
-    if simulate() == -1:
-        print("Reached a final state.")
-        break
-    sleep(0.5)
-    os.system('cls')
+def main():
+    if len(sys.argv) == 1:
+        print("You must enter the arguments!")
+    else:
+        if sys.argv[1] == '-p' or sys.argv[1] == '--play':
+            build_initial_celular_automata()
+            for _ in range(1, 10000000):
+                if simulate() == -1:
+                    print("Reached a final state.")
+                    break
+                sleep(0.5)
+                os.system('cls')
+        elif sys.argv[1] == '-e' or sys.argv[1] == '--encrypt':
+            plain_text = sys.argv[2]
+            #do hash here
+
+
+if __name__ == "__main__":
+    main()
