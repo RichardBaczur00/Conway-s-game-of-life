@@ -1,8 +1,8 @@
 class Coordinate:
     #Built this structure only to make the code more readable
     def __init__(self, x, y):
-        self.x = x;
-        self.y = y;
+        self.x = x
+        self.y = y
 
 
 class Atom:

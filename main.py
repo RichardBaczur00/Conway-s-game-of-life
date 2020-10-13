@@ -1,6 +1,9 @@
 from AtomFile import Atom, Coordinate
 import os
 from time import sleep
+import random
+import sys
+
 
 n = int(input("Please enter the number of lines for the grid: "))
 m = int(input("Please enter the number of columns for the grid: "))
@@ -26,17 +29,22 @@ def print_grid():
             else:
                 print("0", end='')
         print()
+    print()
     return None
 
 
 def build_initial_celular_automata():
     number_of_live_molecules = int(input("Please enter the number of live cells you wish to start with: "))
+    print_grid()
     
-    for i in range(number_of_live_molecules):
-        x_coordinate = int(input("{{ Please enter the x coordiante of the {}-(th) molecule: }}".format(i)))
-        y_coordinate = int(input("{{ Please enter the y coordiante of the {}-(th) molecule: }}".format(i))) 
-
-        grid[x_coordinate][y_coordinate].revive()
+    for _ in range(number_of_live_molecules):
+        x = random.randrange(0, len(grid) - 1)
+        y = random.randrange(0, len(grid[0]) - 1)
+        try:
+            grid[x][y].revive()
+        except:
+            print(x)
+            raise IndexError
 
     print_grid()
 
@@ -58,12 +66,30 @@ def simulate():
     
     for dead_molecule in deaths:
         dead_molecule.is_alive = False
+
+    if len(revives) == 0 and len(deaths) == 0:
+        return -1
     
     print_grid()
+    return 0
 
 
-build_initial_celular_automata()
-for i in range(1, 10000000):
-    simulate()
-    sleep(0.5)
-    os.system('clear')
+def main():
+    if len(sys.argv) == 1:
+        print("You must enter the arguments!")
+    else:
+        if sys.argv[1] == '-p' or sys.argv[1] == '--play':
+            build_initial_celular_automata()
+            for _ in range(1, 10000000):
+                if simulate() == -1:
+                    print("Reached a final state.")
+                    break
+                sleep(0.5)
+                os.system('cls')
+        elif sys.argv[1] == '-e' or sys.argv[1] == '--encrypt':
+            plain_text = sys.argv[2]
+            #do hash here
+
+
+if __name__ == "__main__":
+    main()
