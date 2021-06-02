@@ -19,13 +19,7 @@ class Atom:
         The rules are easy to deduce from the code or they can be found on the internet
     '''
     def is_surviving(self, grid):
-        neighbours = self.get_neighbours(grid)
-        if len(neighbours) < 2:
-            return False
-        elif len(neighbours) > 3:
-            return False
-        else:
-            return True
+        return self.get_neighbours(grid) in [2, 3]
 
 
     '''
